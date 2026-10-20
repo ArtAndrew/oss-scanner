@@ -30,3 +30,5 @@ These are proposed triage guidelines for maintainer review. Critical requires de
 Report a minimal offline reproducer using public APIs or normal request entry points, expected versus observed behavior, root cause and a focused patch with a regression test. Group reports sharing one root cause and distinguish dependencies' bugs from defects in this repository. Ordinary typing, styling and performance defects without a security effect are lower priority. Examples are test harnesses, not a promise that every example is production hardened.
 
 Send findings only through the configured private report channel. Do not place exploit details or confidential reports in public issues, enrollment files or PRs. This threat model describes intended boundaries and contains no vulnerability findings.
+
+The image sets Node's process-local `--dns-result-order=ipv4first` so the Vite test server and fetch agree on localhost resolution in Linux containers. No system DNS or network settings are changed.

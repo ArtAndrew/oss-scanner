@@ -5,7 +5,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates git python3 make g++ pkg-config \
     && rm -rf /var/lib/apt/lists/*
 RUN npm install --global pnpm@11.21.0
-ENV CI=true NX_DAEMON=false NX_NO_CLOUD=true HUSKY=0
+# Keep the Vite test listener and fetch on the same localhost address family.
+ENV CI=true NX_DAEMON=false NX_NO_CLOUD=true HUSKY=0 \
+    NODE_OPTIONS=--dns-result-order=ipv4first
 COPY . /src
 WORKDIR /src
 # Fail if main changes its toolchain; review the Dockerfile instead of silently drifting.
