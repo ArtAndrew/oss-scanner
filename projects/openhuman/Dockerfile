@@ -4,6 +4,7 @@ FROM rust:1.99.1-bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive \
     CARGO_BUILD_JOBS=2 \
+    CARGO_INCREMENTAL=0 \
     CARGO_PROFILE_DEV_DEBUG=line-tables-only \
     RUSTFLAGS="-C force-frame-pointers=yes"
 
@@ -34,4 +35,7 @@ RUN node scripts/release/stage-modules.mjs --output /src/target/oss-scanner-modu
 
 # Leave unit-test tooling and caches in the image. No real service credentials
 # are needed: service-dependent scenarios should use the repository's mocks.
-RUN pnpm test || echo "WARNING: frontend unit tests reported failures"
+# The default one-worker suite takes 27 minutes, exhausting tools/check's
+# 45-minute clone/build/export budget. Use the project-supported CI settings
+# and run the complete suite; leave failures visible.
+RUN VITEST_MAX_WORKERS=2 VITEST_POOL=threads pnpm test
