@@ -1,0 +1,7 @@
+repo: https://github.com/runatlantis/atlantis#main
+primary_contact: jose.amengual@gmail.com
+auto_ccs:
+  - rui@chenrui.dev
+  - dylandcpage@gmail.com
+homepage: https://www.runatlantis.io
+disabled: false
