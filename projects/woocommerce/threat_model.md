@@ -108,9 +108,12 @@ only if WooCommerce's use of core creates the bug.
   ./phpunit.xml --filter <TestName>`, with MariaDB running. Tests use the `woocommerce_tests` database and the
   WordPress copy in `/tmp/wordpress`, configured as the maintainers' wp-env test environment is (`WP_DEBUG` off,
   `WP_TESTS_DOMAIN` localhost). Legacy tests live in `tests/legacy/unit-tests/`, newer ones in `tests/php/`. The
-  full suite is about 17,600 tests and takes 8 to 10 minutes on two CPUs. Offline, the tests that call
-  wordpress.org (`themes_api()`, `wp_version_check()`, the WooCommerce.com helper) fail, and the PayPal Buttons and
-  multisite tests skip; everything else is expected to pass.
+  full suite is about 17,700 tests and takes about 7 minutes on two CPUs. Offline, about 47 fail and 49 skip. The
+  failures are tests that call WooCommerce.com or wordpress.org (`themes_api()`, the WooCommerce.com helper, the
+  remote logger) and tests whose fixtures differ from the maintainers' wp-env setup: the payments settings lists
+  (this image enables cash on delivery and serves the plugin through a symlink, so gateway counts and asset URLs
+  differ), the legacy Select2 usage tracker, log file names and block template fixtures. The PayPal Buttons and
+  multisite tests skip. A failure outside those groups is worth a look.
 
 ### Reproducers must not fabricate the attacker's state
 
