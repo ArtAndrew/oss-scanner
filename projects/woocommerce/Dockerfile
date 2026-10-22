@@ -121,6 +121,7 @@ RUN wp-start \
     && for role in editor author contributor subscriber; do \
          wp user create --path="$WP_ROOT" "$role" "$role@example.com" --role="$role" --user_pass="$role"; \
        done \
+    && wp option update --path="$WP_ROOT" woocommerce_coming_soon no \
     && wp option update --path="$WP_ROOT" woocommerce_enable_guest_checkout yes \
     && wp option update --path="$WP_ROOT" woocommerce_enable_signup_and_login_from_checkout yes \
     && wp option update --path="$WP_ROOT" woocommerce_enable_myaccount_registration yes \
